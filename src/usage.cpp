@@ -1,11 +1,24 @@
 #include <usage.h>
 
-Usage::Usage(string message) {
+Usage::Usage() {
+
+}
+
+void Usage::printUsage() {
+	cerr << "Usage: awget <URL> [-c chainfile]" << endl;
+}
+
+void Usage::printUsageAndExit() {
+	cerr << "Usage: awget <URL> [-c chainfile]" << endl;	
+	exit(0);
+}
+
+void Usage::printErrorAndExit(string message) {
 	if (message.empty()) {
 		cerr << "Usage: awget <URL> [-c chainfile]" << endl;
-		exit(-1);
+		exit(0);
 	}
-	cout << message << endl;
+	cout << "Error: " << message << endl;
 	cerr << "Usage: awget <URL> [-c chainfile]" << endl;
-	exit(-1);
+	exit(0);
 }

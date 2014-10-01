@@ -3,4 +3,5 @@
 
 int main(int argc, char **argv) {
 	Reader r(argc, argv);
+	r.parseFile("chaingang.txt");
 }

@@ -5,7 +5,10 @@
 
 class Usage {
 	public:
-		Usage(string message);
+		Usage();
+		void printUsage();
+		void printUsageAndExit();
+		void printErrorAndExit(string message);
 };
 
 #endif
