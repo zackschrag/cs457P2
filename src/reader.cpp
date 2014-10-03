@@ -79,9 +79,48 @@ void Reader::parseFile(string filename) {
 		size_t pos = currentLine.find(",");
 		currentIP = currentLine.substr(0,pos);
 		string portString = currentLine.substr(pos+1, currentLine.length()).c_str();
-		currentPort = atoi(portString.c_str());
+		//currentPort = atoi(portString.c_str());
 		ctr++;
-		cd->addEntry(currentIP, currentPort);
+		cd->addEntry(currentIP, portString);
 	}
+	cd->listEntries();
 	file.close();
+
+	IpPortPair ss = cd->getRandomEntry();
+	connectToSS(ss);
+}
+
+void Reader::connectToSS(IpPortPair ss) {
+	// START HERE WORK ON CONNECTING!!!!
+
+
+
+	
+	// int defaultSSPort = 3456;
+	// socklen_t ClientLen;
+	// struct sockaddr_in ssAddr;
+	// ssAddr.sin_family = AF_INET;
+	// ssAddr.sin_addr.s_addr = htonl(INADDR_ANY);
+	// ssAddr.sin_port = htons(defaultSSPort);
+	// int ssPort = defaultSSPort;
+	// int ssSock;
+
+	// cout << "Connecting to server... ";
+	// struct addrinfo hints, *res;
+	// int sockfd;
+
+	// memset(&hints, 0, sizeof(hints));
+	// hints.ai_family = AF_UNSPEC;
+	// hints.ai_socktype = SOCK_STREAM;
+	// hints.ai_protocol = 6;
+
+	// getaddrinfo(ss.getIP().c_str(), , &hints, &res);
+	
+	// sockfd = socket(res->ai_family, res->ai_socktype, res->ai_protocol);
+
+	// if (connect(sockfd, res->ai_addr, res->ai_addrlen) < 0) {
+	// 	cerr << "\nError connecting. Please try again." << endl;
+	// 	v.printUsage();
+	// 	exit(1);
+	// }
 }

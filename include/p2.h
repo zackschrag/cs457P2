@@ -3,11 +3,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <map>
 #include <vector>
+#include <iterator>
 
 using std::cin;
 using std::cout;

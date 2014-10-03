@@ -2,17 +2,19 @@
 #define CHAINDATA_H
 
 #include <p2.h>
+#include <ipportpair.h>
 
 class ChainData {
 	public:
 		ChainData();
-		void addEntry(string ip, int port);
+		void addEntry(string ip, string port);
 		void removeEntry(int index);
 		int getSSnum();
 		void listEntries();		
+		IpPortPair getRandomEntry();
 
 	private:
 		int SSnum;
-		map<string, int> AddressPortTable;
+		vector<IpPortPair> AddressPortTable;
 };
 #endif

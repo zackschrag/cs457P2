@@ -23,6 +23,7 @@ class Reader {
 		bool validateURL(string url);
 		bool validateOptions();
 		bool doesChainFileExist(string filename);
+		void connectToSS(IpPortPair ss);
 };
 
 #endif
