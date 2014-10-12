@@ -12,7 +12,9 @@ SS::SS() {
 SS::~SS() {
 	delete cd;
 }
-
+/*
+*	parseUrl: Takes the given url and finds the filename from it based on the last '/' character.
+*/
 string SS::parseUrl(string url) {
 	size_t pos = url.find_last_of("/\\");
 
@@ -22,6 +24,10 @@ string SS::parseUrl(string url) {
 	return url.substr(pos+1, url.length());
 }
 
+/*
+*	clientRequestConnection: handles the connection details to a server
+*	Returns the socket descriptor.
+*/
 int SS::clientRequestConnection(string ip, string port, ChainData cdOrig) {
 	struct addrinfo hints, *res;
 	int clientSock;
@@ -49,6 +55,10 @@ int SS::clientRequestConnection(string ip, string port, ChainData cdOrig) {
 	return clientSock;
 }
 
+/*
+*	serverListen: handles the connection details from a client request
+*	Returns the socket descriptor after the connection has been made.
+*/
 int SS::serverListen(int port) {
 	listenPort = port;
 	socklen_t ClientLen;
@@ -89,6 +99,10 @@ int SS::serverListen(int port) {
 	return newSock;
 }
 
+/*
+*	receiveChainData: receives each packet of the chain file and constructs a ChainData object.
+*/
+
 void SS::receiveChainData(int servSock) {
 	char incomingChainBuffer[26];
 	chainPacket cp;
@@ -117,6 +131,9 @@ void SS::receiveChainData(int servSock) {
 	}
 }
 
+/*
+*	client: handles client operations: connection, sending requests, and relaying/writing the file.
+*/
 void SS::client(string ip, string port, string url, ChainData cdOrig, bool isAwget) {
 	int clientSock = clientRequestConnection(ip, port, cdOrig);
 	char incomingBuffer[CHUNK_SIZE];
@@ -176,6 +193,9 @@ void SS::client(string ip, string port, string url, ChainData cdOrig, bool isAwg
 	close(clientSock);
 }
 
+/*
+*	server: handles the server details, listening for connection, fulfilling requests, and listening again.
+*/
 void SS::server(int port) {
 	if (port == 0) {
 		port = 29048;
@@ -195,6 +215,9 @@ void SS::server(int port) {
 	close(servSock);
 }
 
+/*
+*	sendChainData: sends a packet for every entry in the chain file.
+*/
 void SS::sendChainData(int socket) {
 	// Send a packet with each chainfile entry
 	chainPacket cp;
@@ -233,8 +256,10 @@ void SS::sendChainData(int socket) {
 	}
 }
 
+/*
+* sendEmptyChainData: Sends a dummy packet so the server knows the chainlist is empty
+*/
 void SS::sendEmptyChainData(int socket) {
-	// Sends a dummy packet so the server knows the chainlist is empty
 	chainPacket cp;
 	memset(&cp, 0, sizeof(cp));
 
@@ -264,6 +289,9 @@ void SS::sendEmptyChainData(int socket) {
 	send(socket, chainBuffer, sizeof(chainBuffer), 0);
 }
 
+/*
+* sendRequestPacket: Sends the packet with the url to the server.	
+*/
 void SS::sendRequestPacket(packet requestPacket, int socket, string url) {
 	char requestBuffer[PACKET_SIZE];
 	memset(requestBuffer, 0, sizeof(requestBuffer));
@@ -279,6 +307,10 @@ void SS::sendRequestPacket(packet requestPacket, int socket, string url) {
 	send(socket, requestBuffer, sizeof(requestBuffer), 0);
 }
 
+/*
+*	handleRequest: handles the request from the client and either sends it on to the
+*   next stepping stone or issues the 'wget' and sends it back to the client.
+*/
 void SS::handleRequest(int socket) {
 	// First get ChainData so we have the object to update
 	receiveChainData(socket);

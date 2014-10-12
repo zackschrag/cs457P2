@@ -36,3 +36,10 @@ awget
 
 'awget' will launch the first connection to a stepping stone, and it will also parse the chain file and construct an object from this data.
 
+-----------------
+Running the Program
+-----------------
+
+The submitted tar is of include/ (which contains *.h files), src/ (which contains the *.cpp files), the README, and the makefile. When untarred, you can run make and the executables will be produced in the root of the file structure.
+
+This was done to be more organized with the code, and help with debugging. The makefile should create everything appropriately. If there are any problems, please contact us.

@@ -6,7 +6,7 @@ int main(int argc, char **argv) {
 	r.validate();
 
 	// Now we know all arguments are valid
-	//Parse chainfile and construct ChainData object
+	// Parse chainfile and construct ChainData object
 	cout << "r.getChainFile() -- " << r.getChainFile() << endl;
 	r.parseFile(r.getChainFile());
 

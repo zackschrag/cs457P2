@@ -7,9 +7,6 @@ int main(int argc, char **argv) {
 	Reader r(argc, argv);
 	r.validateSS();
 
-	// string url = "http://img.izifunny.com/pics/2013/20130109/640/beautiful-nature-pictures-52-pics_37.jpg";
-	// string result = ss.parseUrl(url);
-	// cout << "RESULT: " << result << endl;
 	// Start listening for requests
 	if (argc > 1) {
 		string port = argv[2];
